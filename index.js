@@ -18,6 +18,7 @@ mongoose
   .catch((err) => console.log(err));
 
   app.use('/user',userHandler);
+  app.get('/',(req,res)=>res.send('Api is working'));
   
   app.listen(process.env.PORT || 5000, () => {
     console.log("App runing is 5000 port");
