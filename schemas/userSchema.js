@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
   password: {
     type: String,
-    required: true,
+    required: [true,"Please Provide Password"],
   },
   userStatus: {
     type: Boolean,
@@ -12,21 +12,23 @@ const userSchema = mongoose.Schema({
   customer: {
     name: {
       type: String,
-      require: true,
+      required:  [true,"Please Provide Name"],
     },
     email: {
       type: String,
-      require: true,
+      required:  [true,"Please Provide email"],
     },
     phoneNumber: {
       type: Number,
-      require: true,
+      required:  [true,"Please Provide number"],
     },
     address: {
       type: String,
-      require: true,
+      required:  [true,"Please Provide address"],
     },
   },
+},{
+  versionKey: false
 });
 
 module.exports = userSchema;

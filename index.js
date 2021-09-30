@@ -1,9 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 const app = express();
-const userHandler = require('./routeHandlers/userHandler');
-require('dotenv').config();
+const userHandler = require("./routeHandlers/userHandler");
+const SendResponse = require("./controller/SendResponse/SendResponse");
+require("dotenv").config();
 app.use(express.json());
 app.use(cors());
 
@@ -17,14 +18,11 @@ mongoose
   .then(() => console.log("connection successful"))
   .catch((err) => console.log(err));
 
-  app.use('/user',userHandler);
-  app.get('/',(req,res)=>res.send('Api is working'));
-  
-  app.listen(process.env.PORT || 5000, () => {
-    console.log("App runing is 5000 port");
-  });
+// For User
+app.use("/user", userHandler);
 
+app.get("/", (req, res) => res.send(SendResponse(true,"Api is working")));
 
-
-
-
+app.listen(process.env.PORT || 5000, () => {
+  console.log("App runing is 5000 port");
+});
