@@ -40,20 +40,10 @@ const UpdateProfile = async (req, res) => {
         ))
       : undefined;
 
-    // Check store name is alreadyUsed or not
-    storeName
-      ? (usedStoreName = await Seller.findOne(
-          { "storeInformation.storeName": storeName },
-          { _id: 1 }
-        ))
-      : undefined;
-
     if (usedEmail) {
       res.status(404).send(SendResponse(false, "Email is already used"));
     } else if (usedPhoneNumber) {
       res.status(404).send(SendResponse(false, "PhoneNumber is already used"));
-    } else if (usedStoreName) {
-      res.status(404).send(SendResponse(false, "Store Name is already used"));
     } else {
       // update user data in mongodb
       const dataInsert = await Seller.updateOne(
