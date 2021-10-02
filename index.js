@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
+const jwt = require("jsonwebtoken");
 const userHandler = require("./routeHandlers/userHandler");
+const sellerHandler = require("./routeHandlers/sellerHandler");
 const SendResponse = require("./controller/SendResponse/SendResponse");
 require("dotenv").config();
 app.use(express.json());
@@ -20,8 +22,18 @@ mongoose
 
 // For User
 app.use("/user", userHandler);
+// For Seller
+app.use("/seller", sellerHandler);
 
-app.get("/", (req, res) => res.send(SendResponse(true,"Api is working")));
+app.get("/", (req, res) => res.send(SendResponse(true, "Api is working")));
+
+app.use((err, req, res, next) => {
+  if (err instanceof jwt.JsonWebTokenError) {
+    res.status(401).send(SendResponse(false, "Authentication failed"));
+  } else {
+    res.status(500).send(SendResponse(false, "Internal server error"));
+  }
+});
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("App runing is 5000 port");

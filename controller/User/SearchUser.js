@@ -9,24 +9,28 @@ const SearchUser = async (req, res) => {
     let oneUserData;
     // check which query is available id or email
     if (req.query.id) {
-      user = await Users.find({ _id: req.query.id },{password:0});
+      user = await Users.findOne({ _id: req.query.id }, { password: 0 });
     } else if (req.query.email) {
-      user = await Users.find({ "customer.email": req.query.email });
+      user = await Users.findOne(
+        { "customer.email": req.query.email },
+        { password: 0 }
+      );
     }
     oneUserData = {
-      id: user[0]?._id,
-      ...user[0]?.customer,
-      userStatus: user[0]?.userStatus,
+      id: user?._id,
+      ...user?.customer,
+      userStatus: user?.userStatus,
     };
     // check user is found or not found
-    if (user.length > 0) {
-      res.status(200).send(SendResponse(true,'User Data Found',[oneUserData]))
+    if (user) {
+      res
+        .status(200)
+        .send(SendResponse(true, "User Data Found", [oneUserData]));
     } else {
-      res.status(404).send(SendResponse(false, 'User Data Not Found'));
+      res.status(404).send(SendResponse(false, "User Data Not Found"));
     }
-
   } catch (err) {
-    res.status(400).send(SendResponse(false,'Bad Request'));
+    res.status(404).send(SendResponse(false, "User Data Not Found"));
   }
 };
 
