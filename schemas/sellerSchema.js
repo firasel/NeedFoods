@@ -112,6 +112,10 @@ const sellerSchema = mongoose.Schema(
           type: String,
           default: Date.now(),
         },
+        sellerId: {
+          type: String,
+          required: [true, "Seller id is required"],
+        },
         name: {
           type: String,
           required: [true, "Foods name required"],

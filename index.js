@@ -5,6 +5,7 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const userHandler = require("./routeHandlers/userHandler");
 const sellerHandler = require("./routeHandlers/sellerHandler");
+const productHandler = require("./routeHandlers/productHandler");
 const SendResponse = require("./controller/SendResponse/SendResponse");
 require("dotenv").config();
 app.use(express.json());
@@ -24,6 +25,8 @@ mongoose
 app.use("/user", userHandler);
 // For Seller
 app.use("/seller", sellerHandler);
+// For Products
+app.use("/product", productHandler);
 
 app.get("/", (req, res) => res.send(SendResponse(true, "Api is working")));
 

@@ -5,6 +5,8 @@ const SignUp = require("../controller/Seller/Signup");
 const SendResponse = require("../controller/SendResponse/SendResponse");
 const UpdateProfile = require("../controller/Seller/UpdateProfile");
 const LoginGuard = require("../middleware/LogInGuard");
+const AllSeller = require("../controller/Seller/AllSeller");
+const DeleteSeller = require("../controller/Seller/DeleteSeller");
 const router = express.Router();
 
 router.get("/", (req,res)=>res.send(SendResponse(true,"seller api is working")));
@@ -20,6 +22,12 @@ router.get('/search',SearchSeller);
 
 //This is for search one seller data
 router.post('/update',UpdateProfile);
+
+//This is for search one seller data
+router.get('/all',AllSeller);
+
+//This is for search one seller data
+router.get('/delete',DeleteSeller);
 
 router.get("/test",LoginGuard,(req,res)=>{
     try {
