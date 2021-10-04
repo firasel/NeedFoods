@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { ObjectID } = require("mongodb");
 const sellerSchema = require("../../schemas/sellerSchema");
 const Foods = new mongoose.model("sellers", sellerSchema);
 const SendResponse = require("../SendResponse/SendResponse");
@@ -17,11 +16,11 @@ const AddFood = async (req, res) => {
     reservation,
     foodPickUp,
     foodDelivery,
+    addOns,
   } = req.body;
 
   // Formate the data for insert in mongodb
   const formateData = {
-    _id: new ObjectID(),
     sellerId,
     name,
     img,
@@ -33,6 +32,7 @@ const AddFood = async (req, res) => {
     reservation,
     foodPickUp,
     foodDelivery,
+    addOns,
   };
   if (sellerId && name && details && category && price) {
     const foodDataInsert = await Foods.updateOne(
@@ -45,7 +45,7 @@ const AddFood = async (req, res) => {
         },
       }
     );
-    
+
     if (foodDataInsert?.modifiedCount > 0) {
       res
         .status(200)

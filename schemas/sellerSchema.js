@@ -108,10 +108,6 @@ const sellerSchema = mongoose.Schema(
     ],
     foods: [
       {
-        _id: {
-          type: String,
-          default: Date.now(),
-        },
         sellerId: {
           type: String,
           required: [true, "Seller id is required"],
@@ -156,6 +152,22 @@ const sellerSchema = mongoose.Schema(
           type: Boolean,
           default: true,
         },
+        addOns: [
+          {
+            name: {
+              type: String,
+              required: [true, "AddOns Name is required"],
+            },
+            price: {
+              type: Number,
+              required: [true, "Price is required"],
+            },
+            status: {
+              type: Boolean,
+              default: true,
+            },
+          },
+        ],
         reviews: [
           {
             customerId: {
@@ -184,9 +196,9 @@ const sellerSchema = mongoose.Schema(
     ],
     reservations: [
       {
-        _id: {
+        sellerId: {
           type: String,
-          default: Date.now(),
+          required: [true, "Seller id is required"],
         },
         name: {
           type: String,
@@ -212,9 +224,13 @@ const sellerSchema = mongoose.Schema(
           type: Boolean,
           default: true,
         },
+        totalSeat: {
+          type: Number,
+          required: [true, "total seat is required"],
+        },
         availableSeat: {
           type: Number,
-          required: [true, "seat is required"],
+          required: [true, "available seat is required"],
         },
         reviews: [
           {

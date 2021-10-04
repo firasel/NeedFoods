@@ -1,13 +1,19 @@
 const express = require("express");
 const AddFood = require("../controller/Product/AddFood");
+const AddReservation = require("../controller/Product/AddReservation");
 const AllFood = require("../controller/Product/AllFood");
 const DeleteFood = require("../controller/Product/DeleteFood");
 const SearchFood = require("../controller/Product/SearchFood");
+const DeleteAddOns = require("../controller/Product/DeleteAddOns");
 const UpdateFood = require("../controller/Product/UpdateFood");
+const UpdateReservation = require("../controller/Product/UpdateReservation");
 const SendResponse = require("../controller/SendResponse/SendResponse");
+const SearchReservation = require("../controller/Product/SearchReservation");
 const router = express.Router();
 
-router.get("/", (req,res)=>res.send(SendResponse(true,"product api is working")));
+router.get("/", (req, res) =>
+  res.send(SendResponse(true, "product api is working"))
+);
 
 // This is the add a single food
 router.post("/addfood", AddFood);
@@ -23,5 +29,17 @@ router.get("/food", AllFood);
 
 // This is the delete one food
 router.get("/deletefood", DeleteFood);
+
+// This is the add one reservation
+router.post("/addreservation", AddReservation);
+
+// This is the add one reservation
+router.post("/updatereservation", UpdateReservation);
+
+// This is the search reservation
+router.get("/searchreservation", SearchReservation);
+
+// This is the add one reservation
+router.post("/deleteaddons", DeleteAddOns);
 
 module.exports = router;
