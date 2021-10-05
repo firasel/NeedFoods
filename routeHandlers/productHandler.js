@@ -9,6 +9,8 @@ const UpdateFood = require("../controller/Product/UpdateFood");
 const UpdateReservation = require("../controller/Product/UpdateReservation");
 const SendResponse = require("../controller/SendResponse/SendResponse");
 const SearchReservation = require("../controller/Product/SearchReservation");
+const DeleteReservation = require("../controller/Product/DeleteReservation");
+const AllReservation = require("../controller/Product/AllReservation");
 const router = express.Router();
 
 router.get("/", (req, res) =>
@@ -38,6 +40,12 @@ router.post("/updatereservation", UpdateReservation);
 
 // This is the search reservation
 router.get("/searchreservation", SearchReservation);
+
+// This is the delete reservation
+router.get("/deletereservation", DeleteReservation);
+
+// This is the get all reservation data
+router.get("/reservation", AllReservation);
 
 // This is the add one reservation
 router.post("/deleteaddons", DeleteAddOns);

@@ -8,7 +8,9 @@ const AllFood = async (req, res) => {
   let searchQuery = sellerId ? { _id: sellerId } : {};
 
   const FoodsData = await Foods.find(searchQuery, {
-    foods:{ $slice: [(page - 1) * limit, limit] },
+    foods: {
+      $slice: [(parseInt(page) - 1) * parseInt(limit), parseInt(limit)],
+    },
     _id: 0,
     seller: 0,
     storeInformation: 0,
@@ -19,14 +21,15 @@ const AllFood = async (req, res) => {
     reservations: 0,
   }).limit(1);
 
-
   // const FoodsData = await Foods.aggregate([{ $match: { "_id": sellerId } },
   // { $project: { 'foods': { $arrayElemAt: ["$reviews", 0] } } }])
   // console.log(FoodsData);
 
   // res.status(200).send(SendResponse(true, "Foods Data found",FoodsData));
   if (FoodsData) {
-    res.status(200).send(SendResponse(true, "Foods Data found", FoodsData['0']['foods']));
+    res
+      .status(200)
+      .send(SendResponse(true, "Foods Data found", FoodsData["0"]["foods"]));
   } else {
     res.status(404).send(SendResponse(false, "Food Data Not Correct"));
   }

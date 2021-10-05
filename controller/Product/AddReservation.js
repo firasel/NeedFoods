@@ -28,6 +28,7 @@ const AddReservation = async (req, res) => {
     totalSeat,
     availableSeat,
   };
+
   if (sellerId && name && details && category && price && totalSeat && availableSeat) {
     const reservationDataInsert = await Reservations.updateOne(
       { _id: sellerId },
